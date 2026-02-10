@@ -1,0 +1,40 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: rate-limit-and-throttle-api
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/rate_limit?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: Password@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+
+  flyway:
+    enabled: true
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+      password: Password@123
+
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+
+com:
+  nazir:
+    token:
+      secret-key: kAMpULKyHUEfRfaTTCjnFdOcL1s+buKha0Y0m/KVd+Q=
+      validity: 120
+    overseer:
+      open-api:
+        enabled: true
+        title: Rate Limit & Throttle API
+        api-version: v1
+        description: API for managing user plans and rate limiting

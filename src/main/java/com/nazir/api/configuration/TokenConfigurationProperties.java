@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Validated
-@ConfigurationProperties(prefix = "com.nazir.overseer.token")
+@ConfigurationProperties(prefix = "com.nazir.token")
 public class TokenConfigurationProperties {
 		
 	/**
