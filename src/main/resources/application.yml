@@ -1,0 +1,29 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: overseer
+  datasource:
+    url: jdbc:mysql://localhost:3306/rate_limit?useSSL=false&serverTimezone=UTC
+    username: root
+    password: MySql@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+    
+com:
+  nazir:
+    overseer:
+      token:
+        secret-key: wZK5ZtQ9mN2H2d6mV1N6Xzv8F5r4M0s8Kz1bXnKz5nA=
+        validity: 120
+      open-api:
+        enabled: true
+        api-version: 1.0.0
+        title: Overseer
+        description: Backend application imposing rate limit on private API endpoints using token bucket algorithm
