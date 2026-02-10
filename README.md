@@ -101,9 +101,3 @@ sudo docker-compose build
 sudo docker-compose up -d
 ```
 
----
-### Visual Walkthrough
-
-https://github.com/nazir/rate-limiting-api-spring-boot/assets/69693621/8a14800f-1fed-4ad7-8606-d8015d7f66a1
-
-
