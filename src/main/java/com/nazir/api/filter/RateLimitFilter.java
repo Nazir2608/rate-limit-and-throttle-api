@@ -3,6 +3,7 @@ package com.nazir.api.filter;
 import java.util.concurrent.TimeUnit;
 
 import com.nazir.api.configuration.SecurityConfiguration;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -10,7 +11,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-import com.nazir.api.configuration.BypassRateLimit;
+import com.nazir.api.annotation.BypassRateLimit;
 import com.nazir.api.dto.ExceptionResponseDto;
 import com.nazir.api.service.RateLimitingService;
 import com.nazir.api.utility.ApiEndpointSecurityInspector;
@@ -21,7 +22,6 @@ import io.github.bucket4j.ConsumptionProbe;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 /**
@@ -51,7 +51,6 @@ import lombok.SneakyThrows;
  * @see ApiEndpointSecurityInspector
  */
 @Component
-@RequiredArgsConstructor
 public class RateLimitFilter extends OncePerRequestFilter {
 
 	private final ObjectMapper objectMapper;
@@ -59,6 +58,17 @@ public class RateLimitFilter extends OncePerRequestFilter {
 	private final RequestMappingHandlerMapping requestHandlerMapping;
 	private final AuthenticatedUserIdProvider authenticatedUserIdProvider;
 	private final ApiEndpointSecurityInspector apiEndpointSecurityInspector;
+
+	public RateLimitFilter(ObjectMapper objectMapper, RateLimitingService rateLimitingService,
+			@Qualifier("requestMappingHandlerMapping") RequestMappingHandlerMapping requestHandlerMapping,
+			AuthenticatedUserIdProvider authenticatedUserIdProvider,
+			ApiEndpointSecurityInspector apiEndpointSecurityInspector) {
+		this.objectMapper = objectMapper;
+		this.rateLimitingService = rateLimitingService;
+		this.requestHandlerMapping = requestHandlerMapping;
+		this.authenticatedUserIdProvider = authenticatedUserIdProvider;
+		this.apiEndpointSecurityInspector = apiEndpointSecurityInspector;
+	}
 
 	private static final String RATE_LIMIT_ERROR_MESSAGE = "API request limit linked to your current plan has been exhausted.";
 	private static final HttpStatus RATE_LIMIT_ERROR_STATUS = HttpStatus.TOO_MANY_REQUESTS;

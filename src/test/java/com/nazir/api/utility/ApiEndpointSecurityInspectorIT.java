@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nazir.api.InitializeApplicationSecretKey;
 import com.nazir.api.InitializeMysqlContainer;
 import com.nazir.api.InitializeRedisContainer;
-import com.nazir.api.configuration.PublicEndpoint;
+import com.nazir.api.annotation.PublicEndpoint;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.SneakyThrows;

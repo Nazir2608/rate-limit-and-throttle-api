@@ -1,4 +1,4 @@
-package com.nazir.api.configuration;
+package com.nazir.api.annotation;
 
 import com.nazir.api.filter.JwtAuthenticationFilter;
 

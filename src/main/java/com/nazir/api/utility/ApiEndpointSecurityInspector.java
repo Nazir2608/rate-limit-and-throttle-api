@@ -8,20 +8,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import com.nazir.api.configuration.OpenApiConfigurationProperties;
-import com.nazir.api.configuration.PublicEndpoint;
+import com.nazir.api.annotation.PublicEndpoint;
 
 import io.swagger.v3.oas.models.PathItem.HttpMethod;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Utility class responsible for evaluating the accessibility of API endpoints
@@ -32,7 +32,6 @@ import lombok.RequiredArgsConstructor;
  * @see OpenApiConfigurationProperties
  */
 @Component
-@RequiredArgsConstructor
 @EnableConfigurationProperties(OpenApiConfigurationProperties.class)
 public class ApiEndpointSecurityInspector {
 
@@ -44,6 +43,12 @@ public class ApiEndpointSecurityInspector {
 	private List<String> publicGetEndpoints = new ArrayList<String>();
 	@Getter
 	private List<String> publicPostEndpoints = new ArrayList<String>();
+	
+	public ApiEndpointSecurityInspector(@Qualifier("requestMappingHandlerMapping") RequestMappingHandlerMapping requestHandlerMapping,
+			OpenApiConfigurationProperties openApiConfigurationProperties) {
+		this.requestHandlerMapping = requestHandlerMapping;
+		this.openApiConfigurationProperties = openApiConfigurationProperties;
+	}
 	
 	/**
 	 * Initializes the class by gathering public endpoints for various HTTP methods.

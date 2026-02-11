@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nazir.api.configuration.PublicEndpoint;
+import com.nazir.api.annotation.PublicEndpoint;
 import com.nazir.api.dto.ExceptionResponseDto;
 import com.nazir.api.dto.TokenSuccessResponseDto;
 import com.nazir.api.dto.UserCreationRequestDto;
